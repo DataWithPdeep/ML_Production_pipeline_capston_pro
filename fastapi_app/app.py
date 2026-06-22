@@ -56,11 +56,19 @@ def normalize_text(text):
 # MLflow Setup
 # ----------------------------
 
-dagshub.init(
-    repo_owner="DataWithPdeep",
-    repo_name="Capston_Projetc",
-    mlflow=True
-)
+# Set up DagsHub credentials for MLflow tracking
+dagshub_token = os.getenv("CAPSTONE_TEST")
+if not dagshub_token:
+    raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
+
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+
+dagshub_url = "https://dagshub.com"
+repo_owner = "DataWithPdeep"
+repo_name = "Capston_Projetc"
+# Set up MLflow tracking URI
+mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
 
 model_name = "my_model"
 
@@ -106,9 +114,9 @@ templates = Jinja2Templates(directory="fastapi_app/templates")
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse(
-        request=request,          # ← अलग parameter
-        name="index.html",        # ← अलग parameter
-        context={"result": None}  # ← request बाहर निकालो
+        request=request,          
+        name="index.html",        
+        context={"result": None}  
     )
 
 @app.post("/predict", response_class=HTMLResponse)

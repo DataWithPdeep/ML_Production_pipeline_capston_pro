@@ -1,7 +1,7 @@
 schema: '2.0'
 stages:
   data_ingestion:
-    cmd: py -m src.data.data_ingestion
+    cmd: python -m src.data.data_ingestion
     deps:
     - path: src/data/data_ingestion.py
       hash: md5
@@ -16,8 +16,9 @@ stages:
       md5: 4cb13be77d38db01f1457549ce0e0406.dir
       size: 649243
       nfiles: 2
+
   data_preprocessing:
-    cmd: py -m src.data.data_preprocessing
+    cmd: python -m src.data.data_preprocessing
     deps:
     - path: data/raw
       hash: md5
@@ -34,8 +35,9 @@ stages:
       md5: 30f7068da4a57b080052004044763ab0.dir
       size: 401269
       nfiles: 2
+
   feature_engineering:
-    cmd: py -m src.features.build_features
+    cmd: python -m src.features.build_features
     deps:
     - path: data/interim
       hash: md5
@@ -59,8 +61,9 @@ stages:
       hash: md5
       md5: 32ea6bde521ff1d313144fb431fe3e24
       size: 1866
+
   model_building:
-    cmd: py -m src.models.model_building
+    cmd: python -m src.models.model_building
     deps:
     - path: data/processed
       hash: md5
@@ -76,8 +79,9 @@ stages:
       hash: md5
       md5: d26cb56cb3816fb916bbbc4d8e00304b
       size: 1096
+
   model_evaluation:
-    cmd: py -m src.models.model_evaluation
+    cmd: python -m src.models.model_evaluation
     deps:
     - path: models/model.pkl
       hash: md5
@@ -96,8 +100,9 @@ stages:
       hash: md5
       md5: b52d650a8ff0e668ccb81b19c1f2099f
       size: 132
+
   register_model:
-    cmd: py -m src.models.register_model
+    cmd: python -m src.models.register_model
     deps:
     - path: reports/experiment_info.json
       hash: md5

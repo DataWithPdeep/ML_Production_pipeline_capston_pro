@@ -1,6 +1,6 @@
 stages:
   data_ingestion:
-    cmd: py -m src.data.data_ingestion
+    cmd: python -m src.data.data_ingestion
     deps:
       - src/data/data_ingestion.py
     params:
@@ -9,7 +9,7 @@ stages:
       - data/raw
 
   data_preprocessing:
-    cmd: py -m src.data.data_preprocessing
+    cmd: python -m src.data.data_preprocessing
     deps:
       - data/raw
       - src/data/data_preprocessing.py
@@ -17,7 +17,7 @@ stages:
       - data/interim
 
   feature_engineering:
-    cmd: py -m src.features.build_features
+    cmd: python -m src.features.build_features
     deps:
       - data/interim
       - src/features/build_features.py
@@ -28,7 +28,7 @@ stages:
       - models/vectorizer.pkl
 
   model_building:
-    cmd: py -m src.models.model_building
+    cmd: python -m src.models.model_building
     deps:
       - data/processed
       - src/models/model_building.py
@@ -36,7 +36,7 @@ stages:
       - models/model.pkl
 
   model_evaluation:
-    cmd: py -m src.models.model_evaluation
+    cmd: python -m src.models.model_evaluation
     deps:
       - models/model.pkl
       - src/models/model_evaluation.py
@@ -46,7 +46,7 @@ stages:
       - reports/experiment_info.json
 
   register_model:
-    cmd: py -m src.models.register_model
+    cmd: python -m src.models.register_model
     deps:
       - reports/experiment_info.json
       - src/models/register_model.py

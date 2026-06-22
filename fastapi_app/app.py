@@ -58,18 +58,19 @@ def normalize_text(text):
 
 # Set up DagsHub credentials for MLflow tracking
 dagshub_token = os.getenv("CAPSTONE_TEST")
-if not dagshub_token:
-    raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
 
-os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
-os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+print("Token Exists:", bool(dagshub_token))
+print("Token Length:", len(dagshub_token) if dagshub_token else 0)
 
-dagshub_url = "https://dagshub.com"
-repo_owner = "DataWithPdeep"
-repo_name = "ML_Production_pipeline_capston_pro"
-# Set up MLflow tracking URI
-mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
+dagshub.auth.add_app_token(dagshub_token)
 
+dagshub.init(
+    repo_owner="DataWithPdeep",
+    repo_name="ML_Production_pipeline_capston_pro",
+    mlflow=True
+)
+
+print("Tracking URI:", mlflow.get_tracking_uri())
 model_name = "my_model"
 
 def get_latest_model_version(model_name):

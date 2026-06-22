@@ -23,7 +23,7 @@ os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
 
 dagshub_url = "https://dagshub.com"
 repo_owner = "DataWithPdeep"
-repo_name = "Capston_Projetc"
+repo_name = "ML_Production_pipeline_capston_pro"
 # Set up MLflow tracking URI
 mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
 # # -------------------------------------------------------------------------------------
@@ -31,8 +31,8 @@ mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
 
 # Below code block is for local use
 # -------------------------------------------------------------------------------------
-# MLFLOW_TRACKING_URI ="https://dagshub.com/DataWithPdeep/Capston_Projetc.mlflow"
-# dagshub.init(repo_owner="DataWithPdeep", repo_name="Capston_Projetc", mlflow=True)
+# MLFLOW_TRACKING_URI ="https://dagshub.com/DataWithPdeep/ML_Production_pipeline_capston_pro.mlflow"
+# dagshub.init(repo_owner="DataWithPdeep", repo_name="ML_Production_pipeline_capston_pro", mlflow=True)
 # -------------------------------------------------------------------------------------
 
 

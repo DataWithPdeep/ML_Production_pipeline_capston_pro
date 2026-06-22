@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+local_s3/
+data/raw/
+data/interim/
+data/processed/
+models/model.pkl
+models/vectorizer.pkl
+mlruns/

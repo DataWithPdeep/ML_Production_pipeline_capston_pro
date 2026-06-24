@@ -68,12 +68,19 @@ jobs:
           pwd
           ls -la
           docker build . -t test-image
-
-      - name: Tag Docker image
+      - name: Debug Variables
         run: |
-            docker tag ${{ secrets.ECR_REPO }}:latest \
-            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO}}:latest
-
+          echo "ACCOUNT=${{ secrets.AWS_ACCOUNT_ID }}"
+          echo "REGION=${{ secrets.AWS_REGION }}"
+          echo "REPO=${{ secrets.ECR_REPO }}"
+          
+      - name: Tag Docker image
+        env:
+          ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
+          REGION: ${{ secrets.AWS_REGION }}
+          REPO: ${{ secrets.ECR_REPO }}
+        run: |
+          docker tag ${REPO}:latest ${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com/${REPO}:latest
     
       - name: Check Docker Authentication
         run: docker info

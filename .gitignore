@@ -224,3 +224,4 @@ data/processed/
 models/model.pkl
 models/vectorizer.pkl
 mlruns/
+eksctl_Windows_amd64.zip

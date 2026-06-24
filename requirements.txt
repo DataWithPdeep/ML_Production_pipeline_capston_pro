@@ -173,4 +173,9 @@ wrapt==1.16.0
 yarl==1.9.4
 zc.lockfile==3.0.post1
 zipp==3.19.2
-prometheus_client
+fastapi==0.115.0
+uvicorn==0.30.6
+httpx==0.27.2
+pytest==8.3.3
+jinja2
+python-multipart

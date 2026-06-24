@@ -64,23 +64,28 @@ jobs:
             aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
       - name: Build Docker image
+        env:
+          REPO: ${{ secrets.ECR_REPO }}
         run: |
-          pwd
-          ls -la
-          docker build . -t test-image
-      - name: Debug Variables
-        run: |
-          echo "ACCOUNT=${{ secrets.AWS_ACCOUNT_ID }}"
-          echo "REGION=${{ secrets.AWS_REGION }}"
-          echo "REPO=${{ secrets.ECR_REPO }}"
+          echo "REPO=$REPO"
+          docker build . -t "$REPO:latest"
           
+          
+      - name: Check Docker Images
+        run: |
+            docker images
+      
       - name: Tag Docker image
         env:
           ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
           REGION: ${{ secrets.AWS_REGION }}
           REPO: ${{ secrets.ECR_REPO }}
         run: |
-          docker tag ${REPO}:latest ${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com/${REPO}:latest
+          echo "ACCOUNT=$ACCOUNT"
+          echo "REGION=$REGION"
+          echo "REPO=$REPO"
+
+          docker tag "$REPO:latest" "$ACCOUNT.dkr.ecr.$REGION.amazonaws.com/$REPO:latest"
     
       - name: Check Docker Authentication
         run: docker info

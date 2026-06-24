@@ -2,22 +2,23 @@
 
 import os
 import mlflow
-
+import dagshub
 def promote_model():
     # Set up DagsHub credentials for MLflow tracking
     dagshub_token = os.getenv("CAPSTONE_TEST")
-    if not dagshub_token:
-        raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
 
-    os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
-    os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+    print("Token Exists:", bool(dagshub_token))
+    print("Token Length:", len(dagshub_token) if dagshub_token else 0)
 
-    dagshub_url = "https://dagshub.com"
-    repo_owner = "vikashdas770"
-    repo_name = "YT-Capstone-Project"
+    dagshub.auth.add_app_token(dagshub_token)
 
-    # Set up MLflow tracking URI
-    mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
+    dagshub.init(
+        repo_owner="DataWithPdeep",
+        repo_name="ML_Production_pipeline_capston_pro",
+        mlflow=True
+    )
+
+    print("Tracking URI:", mlflow.get_tracking_uri())
 
     client = mlflow.MlflowClient()
 

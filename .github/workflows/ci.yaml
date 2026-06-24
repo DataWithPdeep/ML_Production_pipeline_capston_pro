@@ -43,7 +43,7 @@ jobs:
         if: success()
         env:
           CAPSTONE_TEST: ${{ secrets.CAPSTONE_TEST }}
-        run: python scripts/promote_model.py
+        run: python script/promote_model.py
 
       - name: Run FastAPI app tests
         if: success()
@@ -62,7 +62,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-            docker build -t ${{ secrets.ECR_REPOSITORY }}:latest .
+            docker build -t ${{ secrets.ECR_REPO }}:latest .
 
       - name: Tag Docker image
         run: |

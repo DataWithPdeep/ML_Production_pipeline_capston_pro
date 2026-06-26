@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: fastapi-app
-        image: 020866158197.dkr.ecr.us-east-1.amazonaws.com/fastapi-app:latest
+        image: 604179600612.dkr.ecr.us-east-1.amazonaws.com/ml-production-pipelien:latest
         ports:
         - containerPort: 5000
 

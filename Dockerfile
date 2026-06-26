@@ -1,14 +1,12 @@
-FROM python:3.10-slim
-
 WORKDIR /app
 
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY fastapi_app/ .
+COPY models/ /app/models/
 
-COPY models/vectorizer.pkl /app/models/vectorizer.pkl
+RUN ls -R /app
 
 RUN python -m nltk.downloader stopwords wordnet
 

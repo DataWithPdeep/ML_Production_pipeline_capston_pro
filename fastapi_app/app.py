@@ -93,12 +93,12 @@ model = mlflow.pyfunc.load_model(model_uri)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-vectorizer_path = os.path.join(
-    BASE_DIR,
-    "..",
-    "models",
-    "vectorizer.pkl"
+vectorizer_path = os.path.abspath(
+    os.path.join(BASE_DIR, "models", "vectorizer.pkl")
 )
+
+print("Vectorizer Path:", vectorizer_path)
+print("Exists:", os.path.exists(vectorizer_path))
 
 with open(vectorizer_path, "rb") as f:
     vectorizer = pickle.load(f)

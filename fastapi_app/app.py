@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, Response
+from pathlib import Path
 from fastapi.templating import Jinja2Templates
+
 import mlflow
 import pickle
 import os
@@ -88,8 +90,8 @@ def get_latest_model_version(model_name: str):
 # ─────────────────────────────────────────────
 
 app = FastAPI(title="Sentiment Analysis API")
-templates = Jinja2Templates(directory="templates")
-
+BASE_DIR = Path(__file__).resolve().parent
+templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 # Global — None until startup event fires
 model = None
 vectorizer = None

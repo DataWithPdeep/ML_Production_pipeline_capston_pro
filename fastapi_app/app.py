@@ -104,15 +104,19 @@ vectorizer = None
 @app.on_event("startup")
 async def load_model():
     global model, vectorizer
-    setup_mlflow()
-    model_name = "my_model"
-    model_version = get_latest_model_version(model_name)
-    model_uri = f'models:/{model_name}/{model_version}'
-    print(f"Fetching model from: {model_uri}")
-    model = mlflow.pyfunc.load_model(model_uri)
-    vectorizer = pickle.load(open('models/vectorizer.pkl', 'rb'))
-    print("Model and vectorizer loaded successfully.")
 
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+    model_path = os.path.join(BASE_DIR, "models", "model.pkl")
+    vectorizer_path = os.path.join(BASE_DIR, "models", "vectorizer.pkl")
+
+    with open(model_path, "rb") as f:
+        model = pickle.load(f)
+
+    with open(vectorizer_path, "rb") as f:
+        vectorizer = pickle.load(f)
+
+    print("Model and vectorizer loaded successfully.")
 
 # ─────────────────────────────────────────────
 # Prometheus metrics (custom registry)

@@ -93,16 +93,17 @@ model = mlflow.pyfunc.load_model(model_uri)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-vectorizer_path = os.path.abspath(
-    os.path.join(BASE_DIR, "models", "vectorizer.pkl")
-)
+MODELS_DIR = os.path.join(BASE_DIR, "..", "models")
 
-print("Vectorizer Path:", vectorizer_path)
-print("Exists:", os.path.exists(vectorizer_path))
+MODEL_PATH = os.path.join(MODELS_DIR, "model.pkl")
 
-with open(vectorizer_path, "rb") as f:
-    vectorizer = pickle.load(f)
+VECTORIZER_PATH = os.path.join(MODELS_DIR, "vectorizer.pkl")
 
+print("Model Path :", MODEL_PATH)
+print("Vectorizer Path :", VECTORIZER_PATH)
+
+print("Model Exists :", os.path.exists(MODEL_PATH))
+print("Vectorizer Exists :", os.path.exists(VECTORIZER_PATH))
 # ----------------------------
 # FastAPI App
 # ----------------------------
